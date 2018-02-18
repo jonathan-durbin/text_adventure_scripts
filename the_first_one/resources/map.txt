@@ -1,0 +1,12 @@
+note_2_room	empty_room	interesting_2_room	find_5_gold_room						
+			empty_room			empty_room	empty_room	interesting_5_room	
+			empty_room			zombie_room		empty_room	
+			find_knife_room	empty_room	empty_room	interesting_4_room		ogre_room	
+empty_room	find_5_gold_room	zombie_room	note_1_room					empty_room	
+interesting_1_room			empty_room					sketchy_guy_room	
+ogre_room	empty_room	find_10_gold_room	start_room	sketchy_guy_room	empty_room			note_4_room	
+			empty_room		interesting_3_room			empty_room	
+	find_sword_room	empty_room	empty_room		find_20_gold_room		zombie_room	empty_room	empty_room
+			empty_room		empty_room			victory_room	
+			find_5_gold_room	dead_sad_room	ogre_room				
+			note_3_room						
