@@ -1,0 +1,21 @@
+start_room	find_5_gold_room	random_person_room								
+seller_room		find_chalk_room	stitched_monster_room	find_5_gold_room						
+morse_room				split_2_room	sketchy_guy_room	find_chalk_room	creepy_chamber_room			
+split_2_room	zombie_room	random_person_room	find_eraser_room	zombie_room			huge_judge_bossroom			
+creepy_chamber_room		find_10_gold_room								
+huge_floating_skull_bossroom		crazy_guy_room				find_chalk_room	zombie_room	split_2_room	long_hallway	crazy_guy_room
+		long_hallway				tall_man_room		atbash_room		find_15_gold_room
+	seller_room	split_3_room	tall_man_room	find_chalk_room		sketchy_guy_room		find_slippers_room		random_person_room
+		find_eraser_room		zombie_room	random_person_room	split_3_room	find_15_gold_room	split_2_room	stitched_monster_room	find_slippers_room
+		random_person_room								
+		base64_room								
+		zombie_room								
+sketchy_guy_room	find_20_gold_room	split_3_room	random_person_room	find_slippers_room	seller_room					
+long_hallway		long_hallway		caesarian_6_room						
+random_person_room	find_chalk_room	stitched_monster_room								
+		tall_man_room								
+		creepy_chamber_room								
+		little_boy_room								
+		long_hallway								
+		random_person_room								
+		victory_room								

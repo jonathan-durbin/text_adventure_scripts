@@ -19,7 +19,7 @@ class player():
             
     def print_inventory(self):
         for item in self.inventory:
-            print(item, '\n ========== ')
+            print(item, '\n ========== \n')
             
     def move(self, dx, dy):
         self.location_x += dx
@@ -48,13 +48,13 @@ class player():
                     max_dmg = i.damage
                     best_weapon = i
 
-        print("I use {} against {}!".format(best_weapon.name, enemy.name))
+        print("\nI use {} against {}!\n".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
 
         if not enemy.is_alive():
-            print("I killed {}.".format(enemy.name))
+            print("\nI killed {}.\n".format(enemy.name))
         else:
-            print("{} health is {}.".format(enemy.name, enemy.hp))
+            print("\n{} health is {}.\n".format(enemy.name, enemy.hp))
 
     def flee(self, tile):
         '''Move to a random available tile. '''
@@ -66,7 +66,7 @@ class player():
         edibles = [item for item in self.inventory if isinstance(item, items.heal_item)]
         
         if not edibles:
-            print('I don\'t have anything to eat...')
+            print('\nI don\'t have anything to eat...\n')
             return
         
         for i, item in enumerate(edibles, 1):

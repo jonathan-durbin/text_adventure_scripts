@@ -15,7 +15,7 @@ def tile_exists(x, y):
 
 def load_tiles():
     """Parses a file that describes the world space into the _world object"""
-    with open('resources/map.txt', 'r') as f:
+    with open('map_folder/map.txt', 'r') as f:
         rows = f.readlines()
     x_max = len(rows[0].split('\t'))
     for y in range(len(rows)):
@@ -26,5 +26,3 @@ def load_tiles():
                 global starting_position
                 starting_position = (x, y)
             _world[(x, y)] = None if tile_name == '' else getattr(__import__('tiles'), tile_name)(x, y)
-
-

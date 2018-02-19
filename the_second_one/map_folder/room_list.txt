@@ -1,0 +1,47 @@
+start_room
+victory_room
+
+    enemies:
+huge_floating_skull_bossroom (give second_law when beaten)
+huge_judge_bossroom (give third law when beaten)
+little_boy_bossroom (give zeroth law when beaten)
+zombie_room
+stitched_monster_room
+sketchy_guy_room
+crazy_guy_room
+
+
+    transition rooms:
+long_hallway
+creepy_chamber_room (warns of boss in next room, not creepy if boss is dead?)
+split_2_room
+split_3_room
+(see friends)
+
+    loot rooms:
+find_5_gold
+find_10_gold
+find_15_gold
+find_20_gold
+find_chalk_room
+find_eraser_room
+find_slippers_room
+
+    friends:
+seller_room
+tall_man_room
+random_person_room
+random_person_jimmy (tells about sasquatch)
+random_person_ben (tries to get you to hit alt-f4)
+random_person_wazz (tries to tell you about nerf)
+random_person_shannon (tells you about anime)
+random_person_doctor (tells you that you're sick)
+random_person_highwayman (i'm the highwayman!)
+random_person_cowgirl (tells you to go a certain direction)
+random_person_billiam (tells you that you're in a game)
+
+    note rooms:
+atbash_room
+base64_room
+caesarian_6_room
+morse_room
