@@ -60,3 +60,9 @@ class Heal(action):
         super().__init__(method=player.heal,
                          hotkey = 'h', 
                          heal_item = heal_item)
+        
+class Trade(action):
+    def __init__(self, trader):
+        super().__init__(method=player.trade,
+                         hotkey = 't',
+                         trader = trader)

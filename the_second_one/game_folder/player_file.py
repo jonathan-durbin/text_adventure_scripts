@@ -24,7 +24,7 @@ class player():
     def move(self, dx, dy):
         self.location_x += dx
         self.location_y += dy
-        print(world.told_exists(self.location_x, self_location_y).intro_text())
+        print(world.tile_exists(self.location_x, self_location_y).intro_text())
         
     def move_north(self):
         self.move(dx=0, dy=-1)
@@ -84,3 +84,8 @@ class player():
                 valid = True
             except(ValueError, IndexError):
                 print('Invalid choice, try again.')
+                
+                
+    def trade(self):
+        room = world.tile_exists(self.x, self.y)
+        room.check_if_trade(self)
