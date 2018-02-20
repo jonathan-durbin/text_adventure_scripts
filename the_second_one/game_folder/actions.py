@@ -58,11 +58,19 @@ class Flee(action):
 class Heal(action):
     def __init__(self, heal_item):
         super().__init__(method=player.heal,
+                         name = 'Heal',
                          hotkey = 'h', 
                          heal_item = heal_item)
         
 class Trade(action):
     def __init__(self, trader):
         super().__init__(method=player.trade,
+                         name = 'Trade',
                          hotkey = 't',
                          trader = trader)
+        
+class Quit(action):
+    def __init__(self):
+        super().__init__(method = player.quit,
+                         name = 'Quit',
+                         hotkey = 'b')
