@@ -15,7 +15,7 @@ def tile_exists(x, y):
 
 def load_tiles():
     """Parses a file that describes the world space into the _world object"""
-    with open('map_folder/map.txt', 'r') as f:
+    with open('map.txt', 'r') as f:
         rows = f.readlines()
     x_max = len(rows[0].split('\t')) # Assumes all rows contain the same number of tabs
     for y in range(len(rows)):

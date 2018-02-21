@@ -77,6 +77,6 @@ class little_boy(boss):
     def __init__(self):
         super().__init__(name = 'Little Boy',
                          hp = 50,
-                         damage = 10,
+                         damage = 39,
                          type_boss = True,
                          weapon = items.zeroth_law)
