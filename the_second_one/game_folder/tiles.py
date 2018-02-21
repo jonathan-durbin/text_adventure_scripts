@@ -219,6 +219,7 @@ class reg_enemy_room(map_tile):
 class boss_room(map_tile):
     def __init__(self, x, y, enemy):
         self.enemy = enemy
+        self.weapon_claimed = False
         super().__init__(x, y)
         
     def modify_player(self, player):
@@ -226,9 +227,13 @@ class boss_room(map_tile):
             player.hp = player.hp - self.enemy.damage
             print("The great evil does {} damage. \nI have {} HP remaining".format(self.enemy.damage, player.hp))
             
-        if not self.enemy.is_alive():
+        if not self.enemy.is_alive() and not self.weapon_claimed:
             player.inventory.append(self.enemy.weapon)
             print('The great evil is dead. \nI take the weapon they wielded against me as my own. I now use {}.'.format(self.enemy.weapon.name))
+            self.weapon_claimed = True
+            
+        elif self.weapon_claimed:
+            print('\tThis is where I acquired {}.'.format(self.enemy.weapon.name))
             
     def available_actions(self):
         if self.enemy.is_alive():
@@ -496,12 +501,19 @@ class find_20_gold_room(map_tile):
 ''' Sub-class for loot rooms. '''
 
 class loot_room(map_tile):
-    def __init__(self, x, y, item):
+    def __init__(self, x, y, item, item_claimed):
         self.item = item
+        self.item_claimed = False
         super().__init__(x, y)
         
     def add_loot(self, player):
-        player.inventory.append(self.item)
+        
+        if not self.item_claimed:
+            self.item_claimed = True
+            player.inventory.append(self.item)
+            
+        elif self.item_claimed:
+            return
         
     def modify_player(self, player):
         self.add_loot(player)
@@ -509,38 +521,62 @@ class loot_room(map_tile):
         
 class find_chalk_room(loot_room):
     def __init__(self, x, y):
-        super().__init__(x, y, items.chalk())
+        super().__init__(x, y, items.chalk(), item_claimed = False)
         
     def intro_text(self):
-        return '''
+        
+        if not self.item_claimed:
+            return '''
         
         I see a lone piece of chalk on the floor. Score! This stuff is delicious.
         
-        '''
+            '''
+        elif self.item_claimed:
+            return '''
+            
+        Chalk dust litters the floor. It's too fine for me to pick up.
+            
+            '''
     
 class find_eraser_room(loot_room):
     def __init__(self, x, y):
-        super().__init__(x, y, items.eraser())
+        super().__init__(x, y, items.eraser(), item_claimed = False)
         
     def intro_text(self):
-        return '''
+        
+        if not self.item_claimed:
+            return '''
         
         I spy an eraser attached to a string hanging from the ceiling. Awesome!
         Even better than chalk, these things are super good for me.
         
-        '''
+            '''
+        elif self.item_claimed:
+            return '''
+            
+        Eraser fuzz litters the floor. Gross. Eraser fuzz is only gross when it leaves the eraser.
+            
+            '''
     
 class find_slippers_room(loot_room):
     def __init__(self, x, y):
-        super().__init__(x, y, items.slippers())
+        super().__init__(x, y, items.slippers(), item_claimed = False)
         
     def intro_text(self):
-        return '''
+        
+        if not self.item_claimed:
+            return '''
         
         I see slippers! Nailed to the wall! I'll take them. Even better, they're made out of leather.
         These might be the most delicious things I have ever tasted.
         
-        '''
+            '''
+        elif self.item_claimed:
+            return '''
+            
+        I think this is where I found those slippers. Ahh, good times.
+            
+            '''
     
 ''' Random encounter rooms go here. '''
 

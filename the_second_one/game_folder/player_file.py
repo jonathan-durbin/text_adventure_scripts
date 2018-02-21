@@ -20,7 +20,7 @@ class player():
     def print_inventory(self):
         for item in self.inventory:
             print(item, '\n ========== \n')
-        print('My gold:',self.gold,'\n ========== ')
+        print('My gold:',self.gold,'\n'+'My health:',self.hp,'\n ========== ')
             
     def quit(self):
         self.victory = True
@@ -84,12 +84,12 @@ class player():
             
         valid = False
         while not valid:
-            choice = input('I choose: ')
+            choice = input('\nI choose: ')
             try:
                 to_eat = edibles[int(choice) - 1]
                 self.hp = min(100, self.hp + to_eat.healing_points)
                 self.inventory.remove(to_eat)
-                print('My HP: {}'.format(self.hp))
+                print('\nMy HP: {}'.format(self.hp))
                 valid = True
             except(ValueError, IndexError):
                 print('Invalid choice, try again.')
