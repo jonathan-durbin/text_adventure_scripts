@@ -1,4 +1,4 @@
-import items, world
+import items, world, random
 
 class player():
     def __init__(self):
@@ -20,6 +20,7 @@ class player():
     def print_inventory(self):
         for item in self.inventory:
             print(item, '\n ========== \n')
+        print('My gold:',self.gold,'\n ========== ')
             
     def quit(self):
         self.victory = True
@@ -52,11 +53,11 @@ class player():
                     max_dmg = i.damage
                     best_weapon = i
 
-        print("\nI use {} against {}!\n".format(best_weapon.name, enemy.name))
+        print("\nI use {} against {}!".format(best_weapon.name, enemy.name))
         enemy.hp -= best_weapon.damage
 
         if not enemy.is_alive():
-            print("\nI killed {}.\n".format(enemy.name))
+            print("\nI killed {}.".format(enemy.name))
         else:
             print("\n{} health is {}.\n".format(enemy.name, enemy.hp))
 
@@ -67,14 +68,18 @@ class player():
         self.do_action(available_moves[r])
         
     def heal(self):
+        if self.hp == 100:
+            print('\nI shouldn\'t heal when I already have full hp.')
+            return ''
+        
         edibles = [item for item in self.inventory if isinstance(item, items.heal_item)]
         
         if not edibles:
             print('\nI don\'t have anything to eat...\n')
             return
+        print('Choose an item to heal: ')
         
         for i, item in enumerate(edibles, 1):
-            print('Choose an item to heal: ')
             print('{}. {}'.format(i, item))
             
         valid = False
@@ -91,5 +96,5 @@ class player():
                 
                 
     def trade(self):
-        room = world.tile_exists(self.x, self.y)
+        room = world.tile_exists(self.location_x, self.location_y)
         room.check_if_trade(self)

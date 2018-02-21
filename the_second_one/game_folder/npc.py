@@ -12,12 +12,12 @@ class trader(non_playable_character):
     def __init__(self):
         self.name = 'Trader'
         self.gold = 100
-        self.inventory = [items.chalk,
-                          items.chalk,
-                          items.chalk,
-                          items.eraser,
-                          items.eraser,
-                          items.slippers]
+        self.inventory = [items.chalk(),
+                          items.chalk(),
+                          items.chalk(),
+                          items.eraser(),
+                          items.eraser(),
+                          items.slippers()]
         
 class random_person(non_playable_character):
     def __init__(self):

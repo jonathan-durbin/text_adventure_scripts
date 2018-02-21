@@ -14,7 +14,7 @@ class heal_item(item):
         super().__init__(name, description, value)
         
     def __str__(self):
-        return '{} \n ========== \n{} \n ========== \nValue: {} \nHealing Points: {} \n ========== '.format(self.name, self.description, self.value, self.healing_points)
+        return '\n ========== \n{} \n ========== \n{} \n ========== \nValue: {} \nHealing Points: {}'.format(self.name, self.description, self.value, self.healing_points)
 
 class weapon_item(item):
     def __init__(self, name, description, value, damage):
@@ -22,7 +22,7 @@ class weapon_item(item):
         super().__init__(name, description, value)
         
     def __str__(self):
-        return '{} \n ========== \n{} \n ========== \nValue: {} \nDamage: {} \n ========== '.format(self.name, self.description, self.value, self.damage)
+        return '\n ========== \n{} \n ========== \n{} \n ========== \nValue: {} \nDamage: {}'.format(self.name, self.description, self.value, self.damage)
 
 class note_item(item):
     def __init__(self, name, description, value, writing):
@@ -30,7 +30,7 @@ class note_item(item):
         super().__init__(name, description, value)
         
     def __str__(self):
-        return '{} \n ========== \n{} \n ========== \nValue: {} \nWriting: {} \n ========== '.format(self.name, self.description, self.value, self.writing)
+        return '\n ========== \n{} \n ========== \n{} \n ========== \nValue: {} \nWriting: {}'.format(self.name, self.description, self.value, self.writing)
 
 #''' Currency is important! '''
 #class gold_item(item):

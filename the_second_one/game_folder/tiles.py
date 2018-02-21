@@ -10,7 +10,7 @@ class map_tile:
         raise NotImplementedError('do this in the sub-class!')
 
     def modify_player(self, player):
-        raise NotImplementedError('do this in the sub-class!')
+        pass
     
     def adjacent_moves(self):
         '''Returns all move actions for adjacent tiles'''
@@ -29,10 +29,9 @@ class map_tile:
         '''Returns all of the available actions in this room.'''
         moves = self.adjacent_moves()
         moves.append(actions.view_inventory())
-        print(player().hp)
-        if player().hp < 100:
-            moves.append(player.heal())
-        if world.tile_exists(self.x, self.y) == 'trader_room':
+        moves.append(actions.Heal())
+
+        if self.__class__.__name__ == 'trader_room':
             moves.append(actions.Trade())
             
         moves.append(actions.Quit())
@@ -129,53 +128,62 @@ class trader_room(map_tile):
         super().__init__(x, y)
         
     def trade(self, buyer, trader):
-        for i, item in enumerate(trader.inventory, 1):
-            print("{}. {} - {} Gold".format(i, item.name, item.value))
+#        for i, item in enumerate(trader.inventory, 1):
+#            print("{}. {} - {} Gold".format(i, item.name, item.value))
         
         while True:
-            user_input = input("Choose an item or press \"q\" to exit: ")
+            
+            if not player().inventory:
+                return '\nI have obtained loss...'
+            
+            print("\nChoose an item or press \"q\" to exit: ")
+            
+            for i, item in enumerate(trader.inventory, 1):
+                print("{}. {} - {} Gold".format(i, item.name, item.value))
+                
+            user_input = input('\nI choose: ')
             if user_input == 'q':
                 return
             
             else:
                 try:
                     choice = int(user_input)
-                    to_swap = seller.inventory[choice - 1]
-                    self.swap(seller, buyer, to_swap)
+                    to_swap = trader.inventory[choice - 1]
+                    self.swap(trader, buyer, to_swap)
                 
                 except ValueError:
-                    print("Invalid choice!")
+                    print("\nInvalid choice!")
                     
-    def swap(self, seller, buyer, item):
+    def swap(self, trader, buyer, item):
         if item.value > buyer.gold:
-            print("That's too expensive")
+            print("\nThat's too expensive.")
             return
         
-        seller.inventory.remove(item)
+        trader.inventory.remove(item)
         buyer.inventory.append(item)
         
-        seller.gold = seller.gold + item.value
+        trader.gold = trader.gold + item.value
         buyer.gold = buyer.gold - item.value
-        print("Trade complete!")
+        print("\nTrade complete!")
         
     def check_if_trade(self, player):
         while True:
-            print("Would you like to (b)uy, (s)ell, or (q)uit?")
-            user_input = input()
+            print("\nShould I (b)uy, (s)ell, or (q)uit?\n")
+            user_input = input('I say: ')
             
             if user_input in ['Q', 'q']:
                 return
             
             elif user_input in ['B', 'b']:
-                print("Here's whats available to buy: ")
-                self.trade(buyer=player, seller=self.trader)
+                print("\n\nMy gold: {} \nHere's whats available to buy: ".format(player.gold))
+                self.trade(buyer=player, trader=self.trader)
             
             elif user_input in ['S', 's']:
-                print("Here's whats available to sell: ")
-                self.trade(buyer=self.trader, seller=player)
+                print("\nHere's whats available to sell: ")
+                self.trade(buyer=self.trader, trader=player)
             
             else:
-                print("Invalid choice!")
+                print("\nInvalid choice!")
                 
     def intro_text(self):
         return '''
@@ -204,7 +212,7 @@ class reg_enemy_room(map_tile):
             
     def available_actions(self):
         if self.enemy.is_alive():
-            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy)]
+            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy), actions.Heal()]
         else:
             return self.adjacent_moves()
 
@@ -216,15 +224,15 @@ class boss_room(map_tile):
     def modify_player(self, player):
         if self.enemy.is_alive():
             player.hp = player.hp - self.enemy.damage
-            print("The great evil does {} damage. I have {} HP remaining".format(self.enemy.damage, player.hp))
+            print("The great evil does {} damage. \nI have {} HP remaining".format(self.enemy.damage, player.hp))
             
         if not self.enemy.is_alive():
             player.inventory.append(self.enemy.weapon)
-            print('The great evil is dead. I take the weapon they wielded against me as my own. I now use {}.'.format(self.enemy.weapon))
+            print('The great evil is dead. \nI take the weapon they wielded against me as my own. I now use {}.'.format(self.enemy.weapon.name))
             
     def available_actions(self):
         if self.enemy.is_alive():
-            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy)]
+            return [actions.Flee(tile=self), actions.Attack(enemy=self.enemy), actions.Heal()]
         else:
             return self.adjacent_moves()
 
@@ -559,7 +567,7 @@ class random_person_room(map_tile):
         super().__init__(x, y)
         
     def intro_text(self):
-        print('\nI walk into the next room. \nA stranger greets me. \nThey say their name is {}. \nThey have something to say...'.format(self.random_person.name), '\n =========== \n', self.random_person.message)
+        print('\nI walk into the next room. \nA stranger greets me. \nThey say they are {}. \nThey have something to say...'.format(self.random_person.name), '\n =========== \n', self.random_person.message)
         return ' '
     
     def modify_player(self, player):
